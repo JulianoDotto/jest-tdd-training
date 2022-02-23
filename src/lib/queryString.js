@@ -4,14 +4,15 @@ const buildStringFromKey = ([key, value]) => {
   if (!!value) return `${key}=${value}`;
 };
 
-module.exports.queryString = obj =>
-  Object.entries(obj)
+export function queryString(obj) {
+  return Object.entries(obj)
     .map(buildStringFromKey)
     .filter(item => !!item)
     .join('&');
+}
 
-module.exports.parseQueryString = queryString =>
-  Object.fromEntries(
+export function parseQueryString(queryString) {
+  return Object.fromEntries(
     queryString.split('&').map(item => {
       const parts = item.split('=');
       if (parts[1].indexOf(',') > -1) {
@@ -20,3 +21,4 @@ module.exports.parseQueryString = queryString =>
       return parts;
     }),
   );
+}
